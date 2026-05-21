@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBR — Estudo de Mercado | Toka Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* =============================================
+     DESIGN SYSTEM — IBR
+     ============================================= */
+  :root {
+    --creme:     #EDE9DE;
+    --bege:      #C9C2B2;
+    --navy:      #2C3B4D;
+    --navy-deep: #1C2632;
+    --amber:     #FEB161;
+    --terra:     #A35139;
+    --white:     #FFFFFF;
+
+    --font-sans:  "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-serif: "Instrument Serif", Georgia, serif;
+    --font-ui:    "Instrument Sans", sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--navy-deep);
+    font-family: var(--font-sans);
+  }
+
+  /* =============================================
+     SLIDE ENGINE
+     ============================================= */
+  .deck {
+    width: 100vw; height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 64px 80px;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .4s ease, transform .4s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+  }
+  .slide.exit-left {
+    opacity: 0 !important;
+    transform: translateX(-40px) !important;
+  }
+  .slide.enter-from-left {
+    opacity: 0 !important;
+    transform: translateX(-40px) !important;
+    transition: none !important;
+  }
+
+  /* Themes */
+  .slide.light { background: var(--creme); }
+  .slide.dark  { background: var(--navy-deep); }
+  .slide.navy  { background: var(--navy); }
+
+  /* =============================================
+     TYPOGRAPHY
+     ============================================= */
+  .eyebrow {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .light .eyebrow { color: var(--terra); }
+  .dark .eyebrow  { color: var(--amber); }
+  .navy .eyebrow  { color: var(--amber); }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+  .light h1 { color: var(--navy-deep); }
+  .dark h1  { color: var(--creme); }
+  .navy h1  { color: var(--creme); }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 32px;
+  }
+  .light h2 { color: var(--navy-deep); }
+  .dark h2  { color: var(--creme); }
+  .navy h2  { color: var(--creme); }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .light h3 { color: var(--terra); }
+  .dark h3  { color: var(--amber); }
+  .navy h3  { color: var(--amber); }
+
+  p, li {
+    font-family: var(--font-ui);
+    font-size: clamp(14px, 1.5vw, 17px);
+    line-height: 1.65;
+  }
+  .light p, .light li { color: var(--navy); }
+  .dark p,  .dark li  { color: var(--bege); }
+  .navy p,  .navy li  { color: var(--bege); }
+
+  .big-number {
+    font-family: var(--font-serif);
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .light .big-number { color: var(--terra); }
+  .dark  .big-number { color: var(--amber); }
+  .navy  .big-number { color: var(--amber); }
+
+  .highlight {
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+  .light .highlight { color: var(--terra); }
+  .dark .highlight  { color: var(--amber); }
+  .navy .highlight  { color: var(--amber); }
+
+  /* =============================================
+     LOGO
+     ============================================= */
+  .logo {
+    position: absolute;
+    top: 36px; right: 52px;
+    height: 32px;
+    opacity: .9;
+  }
+
+  /* =============================================
+     SLIDE COUNTER + NAV
+     ============================================= */
+  .nav {
+    position: fixed;
+    bottom: 28px; right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+  }
+  .counter {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--creme);
+    background: var(--navy-deep);
+    padding: 5px 10px;
+    border-radius: 3px;
+    opacity: .85;
+  }
+  .btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--navy-deep);
+    color: var(--creme);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background .2s, transform .15s;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+  }
+  .btn:hover { background: var(--terra); transform: scale(1.08); }
+  .btn:active { transform: scale(.95); }
+
+  /* Progress bar */
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--amber);
+    transition: width .4s ease;
+    z-index: 100;
+  }
+
+  /* =============================================
+     COMPONENTS
+     ============================================= */
+  .divider {
+    width: 48px; height: 2px;
+    margin-bottom: 28px;
+  }
+  .light .divider { background: var(--terra); }
+  .dark .divider  { background: var(--amber); }
+  .navy .divider  { background: var(--amber); }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+  .tag-amber { background: var(--amber); color: var(--navy-deep); }
+  .tag-terra { background: var(--terra); color: var(--white); }
+  .tag-navy  { background: var(--navy); color: var(--creme); }
+  .tag-bege  { background: var(--bege); color: var(--navy-deep); }
+
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; width: 100%; }
+  .col-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; width: 100%; }
+
+  .card {
+    padding: 28px 32px;
+    border-radius: 4px;
+  }
+  .card-light { background: rgba(255,255,255,.5); }
+  .card-dark  { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+  .card-amber { background: var(--amber); }
+  .card-terra { background: var(--terra); }
+
+  ul { list-style: none; padding: 0; }
+  ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .dark ul li, .navy ul li { border-bottom-color: rgba(255,255,255,.08); }
+  ul li:last-child { border-bottom: none; }
+  ul li::before {
+    content: "—";
+    font-family: var(--font-serif);
+    flex-shrink: 0;
+    margin-top: 2px;
+    opacity: .5;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: 13px;
+  }
+  th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .light th { background: var(--navy-deep); color: var(--creme); }
+  .dark th  { background: rgba(255,255,255,.1); color: var(--bege); }
+  .navy th  { background: rgba(255,255,255,.1); color: var(--bege); }
+
+  td {
+    padding: 11px 16px;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .light td { color: var(--navy); border-bottom: 1px solid rgba(0,0,0,.06); }
+  .dark td  { color: var(--bege); border-bottom: 1px solid rgba(255,255,255,.06); }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(0,0,0,.03); }
+  .dark tr:nth-child(even) td { background: rgba(255,255,255,.03); }
+
+  .check { color: var(--amber); font-size: 15px; }
+  .cross { color: var(--bege); opacity: .3; font-size: 15px; }
+
+  /* Slide-specific */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .stat-box {
+    padding: 28px 24px;
+    border-radius: 4px;
+  }
+  .stat-box-light { background: rgba(255,255,255,.6); }
+  .stat-box-dark  { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+  .light .stat-num { color: var(--terra); }
+  .dark  .stat-num { color: var(--amber); }
+  .navy  .stat-num { color: var(--amber); }
+
+  .stat-label {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .light .stat-label { color: var(--navy); }
+  .dark  .stat-label { color: var(--bege); }
+
+  .gap-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .gap-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+
+  /* Persona cards */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+  }
+  .persona-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 22px;
+    border-radius: 4px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .persona-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 36px);
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+    max-width: 800px;
+  }
+  .light .quote { color: var(--navy-deep); }
+  .dark .quote  { color: var(--creme); }
+
+  /* Full-bleed accent line */
+  .accent-line {
+    position: absolute;
+    left: 0; top: 0;
+    width: 4px; height: 100%;
+  }
+  .accent-amber { background: var(--amber); }
+  .accent-terra { background: var(--terra); }
+
+  /* Watermark symbol */
+  .watermark {
+    position: absolute;
+    right: -60px; bottom: -60px;
+    width: 320px;
+    opacity: .04;
+    pointer-events: none;
+  }
+
+  /* Steps */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-style: italic;
+    width: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .light .step-num { color: var(--terra); }
+  .step-title {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 3px;
+  }
+  .step-desc {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--navy);
+    line-height: 1.55;
+    opacity: .8;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ══════════════════════════════════
+       SLIDE 1 — CAPA
+  ══════════════════════════════════ -->
+  <div class="slide dark active" id="s1">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;width:100%;">
+      <img src="I.D VISUAL/LOGOS/02.png" style="height:52px;margin-bottom:64px;opacity:.95;" alt="IBR">
+      <span class="eyebrow">Toka Company · Maio 2026</span>
+      <h1 style="max-width:700px;margin-bottom:20px;">Estudo de Mercado<br><span class="highlight">Cirurgia Refrativa</span></h1>
+      <div class="divider"></div>
+      <p style="max-width:480px;opacity:.7;">Análise de mercado, público-alvo, concorrentes e oportunidades estratégicas para o IBR — Instituto Brasileiro de Refrativa.</p>
+    </div>
+    <img src="I.D VISUAL/LOGOS/02.png" class="watermark" alt="">
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 2 — O MERCADO EM NÚMEROS
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s2">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div style="width:100%;">
+      <span class="eyebrow">Tamanho de Mercado</span>
+      <h2>Um mercado enorme.<br>Quase intacto.</h2>
+      <div class="stat-row">
+        <div class="stat-box stat-box-light">
+          <div class="stat-num">85M</div>
+          <div class="stat-label">brasileiros usam<br>óculos ou lentes</div>
+        </div>
+        <div class="stat-box stat-box-light">
+          <div class="stat-num">18–19M</div>
+          <div class="stat-label">só no estado<br>de São Paulo</div>
+        </div>
+        <div class="stat-box stat-box-light" style="background:var(--terra);">
+          <div class="stat-num" style="color:var(--amber);">~170k</div>
+          <div class="stat-label" style="color:rgba(255,255,255,.8);">cirurgias refrativas<br>realizadas por ano no Brasil</div>
+        </div>
+      </div>
+      <div style="margin-top:28px;padding:20px 28px;background:var(--navy-deep);border-radius:4px;display:inline-block;">
+        <p style="color:var(--amber);font-family:var(--font-ui);font-size:14px;font-weight:700;">
+          Menos de 0,2% do público potencial é operado por ano.
+          <span style="color:var(--bege);font-weight:400;"> Os EUA realizam 3× mais cirurgias refrativas per capita.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 3 — TAM/SAM/SOM
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s3">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div style="width:100%;">
+      <span class="eyebrow">Dimensionamento</span>
+      <h2>Onde está o dinheiro</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nível</th>
+            <th>Universo</th>
+            <th>Contexto</th>
+            <th>Valor estimado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-bege">TAM</span></td>
+            <td><strong>85M</strong> usuários de correção visual</td>
+            <td>Brasil — todos que usam óculos ou lentes</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-terra">SAM</span></td>
+            <td><strong>28–53M</strong> míopes candidatos</td>
+            <td>Foco em SP — maior renda e acesso</td>
+            <td>R$ 1,3–1,5 bi/ano</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-navy">SOM</span></td>
+            <td>Particulares cirúrgicos em SP</td>
+            <td>Nicho premium — Dr. Luis Felipe</td>
+            <td>A definir por metas</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:24px;display:flex;gap:24px;">
+        <div style="padding:16px 24px;background:rgba(0,0,0,.05);border-radius:4px;flex:1;">
+          <p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--terra);margin-bottom:4px;">Ticket por olho</p>
+          <p style="font-size:22px;font-family:var(--font-serif);color:var(--navy-deep);">R$ 4.000</p>
+        </div>
+        <div style="padding:16px 24px;background:rgba(0,0,0,.05);border-radius:4px;flex:1;">
+          <p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--terra);margin-bottom:4px;">Ticket por paciente</p>
+          <p style="font-size:22px;font-family:var(--font-serif);color:var(--navy-deep);">R$ 6–10k</p>
+        </div>
+        <div style="padding:16px 24px;background:var(--navy-deep);border-radius:4px;flex:1;">
+          <p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--amber);margin-bottom:4px;">Mercado privado Brasil</p>
+          <p style="font-size:22px;font-family:var(--font-serif);color:var(--creme);">R$ 1,3–1,5 bi/ano</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 4 — PERSONA
+  ══════════════════════════════════ -->
+  <div class="slide dark" id="s4">
+    <img src="I.D VISUAL/LOGOS/02.png" class="logo" alt="IBR">
+    <div style="width:100%;">
+      <span class="eyebrow">Público-Alvo</span>
+      <h2 style="margin-bottom:8px;">Quem está pronto<br>para operar</h2>
+      <p style="margin-bottom:28px;opacity:.6;font-size:14px;">25–40 anos · Superior completo · Classe média-alta · SP</p>
+      <div class="persona-grid">
+        <div class="persona-card">
+          <div class="persona-icon">💻</div>
+          <div>
+            <p style="font-weight:700;color:var(--amber);font-size:14px;margin-bottom:4px;">Profissional de tela pesada</p>
+            <p style="font-size:13px;opacity:.75;">TI, finanças, jurídico, marketing. 10h/dia na tela. Lente resseca às 23h. Cansado.</p>
+          </div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-icon">🏃</div>
+          <div>
+            <p style="font-weight:700;color:var(--amber);font-size:14px;margin-bottom:4px;">Esportista urbano</p>
+            <p style="font-size:13px;opacity:.75;">Corrida, crossfit, artes marciais, ciclismo. Óculos atrapalha a performance e segurança.</p>
+          </div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-icon">😤</div>
+          <div>
+            <p style="font-weight:700;color:var(--amber);font-size:14px;margin-bottom:4px;">Saturado da dependência</p>
+            <p style="font-size:13px;opacity:.75;">Usando óculos desde a adolescência. Quer liberdade. Renda para investir. Só faltava confiança.</p>
+          </div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-icon">📸</div>
+          <div>
+            <p style="font-weight:700;color:var(--amber);font-size:14px;margin-bottom:4px;">Estético-consciente</p>
+            <p style="font-size:13px;opacity:.75;">Imagem importa. Odeia aparecer em foto com óculos. Mas sem eles não enxerga nada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 5 — DORES & GATILHOS
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s5">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div class="col-2" style="align-items:start;">
+      <div>
+        <span class="eyebrow">Dores reais</span>
+        <h2>O que trava<br>a vida de quem usa óculos</h2>
+        <ul>
+          <li>Óculos embaça no treino. Frame bate na cara.</li>
+          <li>Lente resseca depois de 8h de tela.</li>
+          <li>Dependência diária — perde óculos, viagem complicada.</li>
+          <li>Vergonha de foto sem óculos — e odeia aparecer com.</li>
+          <li>34% dos brasileiros nunca foram ao oftalmologista.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="eyebrow" style="opacity:0;">x</span>
+        <div style="padding:32px;background:var(--navy-deep);border-radius:4px;height:100%;">
+          <p style="color:var(--amber);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;">Gatilho financeiro</p>
+          <p class="quote" style="color:var(--creme);font-size:22px;">"Em 12 anos você vai gastar R$ 12.000 em óculos, lentes e consultas.</p>
+          <div style="height:1px;background:rgba(255,255,255,.1);margin:20px 0;"></div>
+          <p class="quote" style="color:var(--amber);font-size:22px;">Ou você investe R$ 8.000 hoje e não gasta mais nada."</p>
+          <p style="margin-top:20px;font-size:12px;color:var(--bege);opacity:.6;">Argumento de ROI. Nenhum concorrente usa isso. Gap aberto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 6 — CONCORRENTES
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s6">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div style="width:100%;">
+      <span class="eyebrow">Landscape Competitivo</span>
+      <h2>Quem está no jogo</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Tipo</th>
+            <th>Presença</th>
+            <th>Força</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Opty / HOBrasil / Eye Care</strong></td>
+            <td>Rede integrada</td>
+            <td>Nacional (+40 clínicas)</td>
+            <td>Volume e estrutura</td>
+          </tr>
+          <tr>
+            <td><strong>CBV Hospital de Olhos</strong></td>
+            <td>Hospital especializado</td>
+            <td>Brasília + SP</td>
+            <td>Institucional</td>
+          </tr>
+          <tr>
+            <td><strong>Dr. Gabriel Castro / Galilei</strong></td>
+            <td>Médico com marca pessoal</td>
+            <td>SP — Instagram forte</td>
+            <td>Conteúdo digital variado</td>
+          </tr>
+          <tr>
+            <td><strong>Ocular Laser / UNICO</strong></td>
+            <td>Centro de laser premium</td>
+            <td>SP + MG</td>
+            <td>Experiência e tecnologia</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:20px;padding:16px 24px;background:rgba(163,81,57,.1);border-left:3px solid var(--terra);border-radius:0 4px 4px 0;">
+        <p style="font-size:13px;color:var(--navy-deep);">
+          <strong>O espaço livre:</strong> especialista técnico de alto padrão que fala com o paciente como gente e mostra o resultado real de perto. Nenhum dos players acima ocupa essa posição.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 7 — O QUE FAZEM
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s7">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div style="width:100%;">
+      <span class="eyebrow">Mapa de Conteúdo</span>
+      <h2>O que os concorrentes estão fazendo</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Formato</th>
+            <th>CBV</th>
+            <th>Eye Care</th>
+            <th>Dr. Gabriel</th>
+            <th>IBR pode fazer?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Depoimento (texto/vídeo)</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td style="color:var(--terra);font-weight:700;">Sim — melhor</td>
+          </tr>
+          <tr>
+            <td>Estudo de caso narrativo</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td style="color:var(--terra);font-weight:700;">Sim — mais próximo</td>
+          </tr>
+          <tr>
+            <td>Lo-fi / bastidor / trending</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">–</span></td>
+            <td><span class="check">✓</span></td>
+            <td style="color:var(--terra);font-weight:700;">Sim</td>
+          </tr>
+          <tr>
+            <td>Série por profissão (nicho)</td>
+            <td style="font-size:12px;color:var(--bege);">só estático</td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td style="color:var(--amber);font-weight:700;background:var(--navy-deep);padding:4px 8px;border-radius:2px;">GAP aberto</td>
+          </tr>
+          <tr>
+            <td>Série documental pós-operatório</td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td style="color:var(--amber);font-weight:700;background:var(--navy-deep);padding:4px 8px;border-radius:2px;">GAP aberto</td>
+          </tr>
+          <tr>
+            <td>ROI financeiro (custo vs cirurgia)</td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td style="color:var(--amber);font-weight:700;background:var(--navy-deep);padding:4px 8px;border-radius:2px;">GAP aberto</td>
+          </tr>
+          <tr>
+            <td>YouTube / SEO orgânico</td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td><span class="cross">–</span></td>
+            <td style="color:var(--amber);font-weight:700;background:var(--navy-deep);padding:4px 8px;border-radius:2px;">GAP aberto</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 8 — GAP #1 ROI
+  ══════════════════════════════════ -->
+  <div class="slide dark" id="s8">
+    <img src="I.D VISUAL/LOGOS/02.png" class="logo" alt="IBR">
+    <div style="width:100%;">
+      <div class="gap-badge">
+        <div class="gap-num" style="background:var(--amber);color:var(--navy-deep);">1</div>
+        <span style="color:var(--amber);letter-spacing:2px;">Gap mais fácil de explorar</span>
+      </div>
+      <h2>Ninguém faz o cálculo na tela.</h2>
+      <div class="col-2" style="margin-top:24px;align-items:stretch;">
+        <div style="padding:32px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;">
+          <p style="color:var(--bege);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Lente mensal — 10 anos</p>
+          <div class="big-number" style="font-size:64px;color:rgba(255,255,255,.3);">R$ 20k+</div>
+          <p style="color:var(--bege);opacity:.5;margin-top:8px;font-size:13px;">R$ 1.800–2.400/ano × 10 anos.<br>Custo eterno. Invisível.</p>
+        </div>
+        <div style="padding:32px;background:var(--terra);border-radius:4px;">
+          <p style="color:rgba(255,255,255,.7);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Cirurgia IBR — uma vez</p>
+          <div class="big-number" style="font-size:64px;color:var(--amber);">R$ 8k</div>
+          <p style="color:rgba(255,255,255,.8);margin-top:8px;font-size:13px;">Investimento único. Pago em 4–8 anos.<br>Depois disso: lucro todos os anos.</p>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding:16px 24px;background:rgba(254,177,97,.1);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;">
+        <p style="color:var(--bege);font-size:13px;"><strong style="color:var(--amber);">Formatos:</strong> Reel com número crescendo na tela · Calculadora interativa no site · Argumento de vendas no WhatsApp</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 9 — GAP #2 PÓS-OP
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s9">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div class="col-2" style="align-items:start;">
+      <div>
+        <div class="gap-badge">
+          <div class="gap-num" style="background:var(--terra);color:var(--white);">2</div>
+          <span style="color:var(--terra);">Série documental</span>
+        </div>
+        <h2>O pós-operatório não existe como conteúdo em SP.</h2>
+        <p style="margin-top:16px;">Todos os concorrentes vivem no pré-op. O pós — onde mora a maior ansiedade do candidato — não existe como conteúdo seriado em nenhum player de SP.</p>
+        <div style="margin-top:24px;padding:20px 24px;background:rgba(163,81,57,.08);border-radius:4px;">
+          <p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--terra);margin-bottom:12px;">Estrutura da série</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span style="background:var(--terra);color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+              <p style="font-size:13px;color:var(--navy);">Antes — decisão, medo, expectativa</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span style="background:var(--terra);color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+              <p style="font-size:13px;color:var(--navy);">Dia da cirurgia — bastidor real</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span style="background:var(--terra);color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+              <p style="font-size:13px;color:var(--navy);">Semana 1 — como está a visão?</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span style="background:var(--terra);color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">4</span>
+              <p style="font-size:13px;color:var(--navy);">Mês 1 — resultado final, sem óculos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:32px;background:var(--navy-deep);border-radius:4px;height:100%;display:flex;flex-direction:column;justify-content:center;">
+        <p style="color:var(--amber);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;">Por que isso converte</p>
+        <p class="quote" style="font-size:20px;color:var(--creme);">"E se não funcionar?"</p>
+        <p style="color:var(--bege);font-size:13px;margin-top:16px;opacity:.8;">Essa é a objeção #1. O pós-operatório documentado em vídeo real destrói esse medo melhor do que qualquer copy.</p>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:24px 0;"></div>
+        <p style="color:var(--bege);font-size:12px;opacity:.6;"><strong style="color:var(--amber);">Reaproveitamento:</strong> cada série de 4 vídeos vira Reels, YouTube, anúncio de remarketing e prova social no WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 10 — GAP #3 YOUTUBE/SEO
+  ══════════════════════════════════ -->
+  <div class="slide dark" id="s10">
+    <img src="I.D VISUAL/LOGOS/02.png" class="logo" alt="IBR">
+    <div style="width:100%;">
+      <div class="gap-badge">
+        <div class="gap-num" style="background:var(--navy);border:1px solid var(--amber);color:var(--amber);">3</div>
+        <span style="color:var(--amber);">YouTube + SEO</span>
+      </div>
+      <h2>Nenhum especialista de SP<br>tem YouTube relevante em refrativa.</h2>
+      <div class="col-2" style="margin-top:28px;gap:24px;">
+        <div>
+          <p style="color:var(--amber);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Termos com volume alto e zero conteúdo de qualidade</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="padding:12px 16px;background:rgba(255,255,255,.06);border-radius:4px;display:flex;justify-content:space-between;align-items:center;">
+              <p style="font-size:13px;color:var(--creme);">"sou candidato à cirurgia refrativa"</p>
+              <span class="tag tag-amber" style="font-size:10px;">Alto volume</span>
+            </div>
+            <div style="padding:12px 16px;background:rgba(255,255,255,.06);border-radius:4px;display:flex;justify-content:space-between;align-items:center;">
+              <p style="font-size:13px;color:var(--creme);">"LASIK vs PRK qual o melhor"</p>
+              <span class="tag tag-amber" style="font-size:10px;">Alto volume</span>
+            </div>
+            <div style="padding:12px 16px;background:rgba(255,255,255,.06);border-radius:4px;display:flex;justify-content:space-between;align-items:center;">
+              <p style="font-size:13px;color:var(--creme);">"pós-operatório LASIK dia a dia"</p>
+              <span class="tag tag-amber" style="font-size:10px;">Alto volume</span>
+            </div>
+            <div style="padding:12px 16px;background:rgba(255,255,255,.06);border-radius:4px;display:flex;justify-content:space-between;align-items:center;">
+              <p style="font-size:13px;color:var(--creme);">"cirurgia refrativa vale a pena"</p>
+              <span class="tag tag-amber" style="font-size:10px;">Alto volume</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:32px;background:var(--terra);border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <p style="color:rgba(255,255,255,.7);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Meta realista</p>
+            <div class="big-number" style="font-size:56px;color:var(--amber);">20</div>
+            <p style="color:rgba(255,255,255,.9);font-size:14px;margin-top:8px;">vídeos nos primeiros 6 meses</p>
+          </div>
+          <div style="height:1px;background:rgba(255,255,255,.2);margin:20px 0;"></div>
+          <p style="color:rgba(255,255,255,.7);font-size:13px;">Cada vídeo → 3 Reels + SEO no Google. Concorrente do Rio (Dr. Gustavo Bonfadini) já ranqueia nos termos de SP. O campo está aberto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 11 — GAP #4 NICHOS
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s11">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div style="width:100%;">
+      <div class="gap-badge">
+        <div class="gap-num" style="background:var(--navy-deep);color:var(--creme);">4</div>
+        <span style="color:var(--terra);">Prova social espelhada</span>
+      </div>
+      <h2>Ninguém fala com<br>tribos específicas.</h2>
+      <div class="col-3" style="margin-top:20px;">
+        <div style="padding:24px;background:var(--navy-deep);border-radius:4px;">
+          <p style="font-size:28px;margin-bottom:12px;">🥊</p>
+          <p style="color:var(--amber);font-size:13px;font-weight:700;margin-bottom:8px;">Lutador / esportista de contato</p>
+          <p style="color:var(--bege);font-size:12px;line-height:1.6;">"Eu levei o nocaute da minha vida. Não foi soco — foi porque não enxergava direito."<br><br>PRK para atleta de contato. Sem flap. Volta em 30 dias.</p>
+        </div>
+        <div style="padding:24px;background:rgba(163,81,57,.1);border:1px solid var(--terra);border-radius:4px;">
+          <p style="font-size:28px;margin-bottom:12px;">💻</p>
+          <p style="color:var(--terra);font-size:13px;font-weight:700;margin-bottom:8px;">Dev / profissional de TI</p>
+          <p style="color:var(--navy);font-size:12px;line-height:1.6;">"São 23h. Mais 2h de PR open. A lente ressecou às 19h. Trabalho mal. Durmo mal."<br><br>Série específica. Copy que entra na dor exata.</p>
+        </div>
+        <div style="padding:24px;background:rgba(44,59,77,.08);border:1px solid rgba(44,59,77,.2);border-radius:4px;">
+          <p style="font-size:28px;margin-bottom:12px;">🏃</p>
+          <p style="color:var(--navy);font-size:13px;font-weight:700;margin-bottom:8px;">Corredor urbano</p>
+          <p style="color:var(--navy);font-size:12px;line-height:1.6;">"No km 5 o óculos caiu. Parei. Perdi o ritmo. De novo."<br><br>Ativação em corridas de SP. Presença onde o público-alvo literalmente está.</p>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding:16px 24px;background:var(--navy-deep);border-radius:4px;">
+        <p style="font-size:13px;color:var(--bege);"><strong style="color:var(--amber);">Resultado:</strong> custo de aquisição mais baixo · prova social espelhada · taxa de conversão mais alta · nenhum concorrente está fazendo isso.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 12 — POSICIONAMENTO
+  ══════════════════════════════════ -->
+  <div class="slide dark" id="s12">
+    <img src="I.D VISUAL/LOGOS/02.png" class="logo" alt="IBR">
+    <div style="width:100%;max-width:860px;">
+      <span class="eyebrow">Posicionamento</span>
+      <div class="divider"></div>
+      <p class="quote" style="font-size:clamp(28px,3.5vw,44px);color:var(--creme);">
+        Os hospitais comunicam
+        <span class="highlight"> institucional.</span><br>
+        O Dr. Gabriel Castro comunica
+        <span class="highlight"> entretenimento.</span><br>
+        A Opty comunica
+        <span class="highlight"> volume.</span>
+      </p>
+      <div style="height:1px;background:rgba(255,255,255,.15);margin:40px 0;"></div>
+      <p class="quote" style="font-size:clamp(22px,2.8vw,36px);">
+        O espaço livre:
+        <span style="color:var(--amber);font-style:normal;font-family:var(--font-sans);font-size:80%;font-weight:700;display:block;margin-top:12px;letter-spacing:0.5px;">especialista técnico de alto padrão<br>que fala com o paciente como gente<br>e mostra o resultado real de perto.</span>
+      </p>
+      <div style="margin-top:32px;">
+        <span class="tag tag-amber">Esse é o IBR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SLIDE 13 — PRÓXIMOS PASSOS
+  ══════════════════════════════════ -->
+  <div class="slide light" id="s13">
+    <img src="I.D VISUAL/LOGOS/03.png" class="logo" alt="IBR">
+    <div class="accent-line accent-terra"></div>
+    <div class="col-2" style="align-items:start;gap:64px;">
+      <div>
+        <span class="eyebrow">Próximos Passos</span>
+        <h2>O que fazer agora</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div>
+              <p class="step-title">Definir nicho de entrada</p>
+              <p class="step-desc">Escolher qual público atacar primeiro nos ads. Lutador, corredor ou profissional de tela?</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div>
+              <p class="step-title">Persona detalhada</p>
+              <p class="step-desc">Rotina, dores, gatilhos, canais e mensagem. Uma persona real, não um template.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div>
+              <p class="step-title">Estruturar o funil</p>
+              <p class="step-desc">Topo: conteúdo educativo. Meio: avaliação gratuita. Fundo: cirurgia agendada.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div>
+              <p class="step-title">Testar criativos Meta Ads</p>
+              <p class="step-desc">Mínimo 3 ângulos por nicho. ROI financeiro, depoimento espelhado, pós-op real.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">05</span>
+            <div>
+              <p class="step-title">Iniciar canal YouTube</p>
+              <p class="step-desc">20 vídeos nos primeiros 6 meses. SEO + reaproveitamento como Reels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow" style="opacity:0;">x</span>
+        <div style="padding:32px;background:var(--navy-deep);border-radius:4px;margin-bottom:16px;">
+          <p style="color:var(--amber);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Gaps prioritários</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="background:var(--amber);color:var(--navy-deep);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+              <p style="color:var(--creme);font-size:13px;">ROI financeiro — reel + calculadora</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="background:var(--terra);color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+              <p style="color:var(--creme);font-size:13px;">Série documental pós-op em vídeo</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="background:var(--navy);border:1px solid var(--amber);color:var(--amber);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+              <p style="color:var(--creme);font-size:13px;">YouTube como motor de SEO</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="background:var(--navy-deep);border:1px solid var(--bege);color:var(--bege);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">4</span>
+              <p style="color:var(--creme);font-size:13px;">Campanhas por nicho/profissão</p>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px;background:rgba(163,81,57,.1);border-left:3px solid var(--terra);border-radius:0 4px 4px 0;">
+          <p style="font-size:13px;color:var(--navy-deep);line-height:1.6;">
+            <strong>Toka Company · Maio 2026</strong><br>
+            Fontes: IBGE PNS 2019 · SBO · Scielo · Clínica Vizon · SEGS
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div class="nav">
+  <span class="counter" id="counter">1 / 13</span>
+  <button class="btn" id="btnPrev" onclick="go(-1)">&#8592;</button>
+  <button class="btn" id="btnNext" onclick="go(1)">&#8594;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  let animating = false;
+
+  function go(dir) {
+    if (animating) return;
+    animating = true;
+
+    const leaving = slides[cur];
+    cur = (cur + dir + total) % total;
+    const entering = slides[cur];
+
+    // Saída do slide atual
+    leaving.classList.remove('active');
+    if (dir > 0) {
+      leaving.classList.add('exit-left');
+    }
+    // dir < 0: remover 'active' já retorna ao estado padrão (translateX(40px) — sai pela direita)
+
+    if (dir < 0) {
+      // Posiciona o novo slide à esquerda, sem transição
+      entering.classList.add('enter-from-left');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          entering.classList.remove('enter-from-left');
+          entering.classList.add('active');
+        });
+      });
+    } else {
+      entering.classList.add('active');
+    }
+
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+    document.getElementById('progress').style.width = ((cur + 1) / total * 100) + '%';
+
+    setTimeout(() => {
+      leaving.classList.remove('exit-left');
+      animating = false;
+    }, 450);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')  { e.preventDefault(); go(-1); }
+  });
+
+  // Touch swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+  document.addEventListener('touchend',   e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) go(dx > 0 ? 1 : -1);
+  });
+
+  // Init progress
+  document.getElementById('progress').style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>

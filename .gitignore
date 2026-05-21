@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Design source files (arquivos pesados, não precisam no repo)
+I.D VISUAL/ARQUIVO/
+*.ai
+*.eps
+
+# Docs internos
+*.xlsx
+*.xls
+
+# Node
+node_modules/
+.env
+.env.local
