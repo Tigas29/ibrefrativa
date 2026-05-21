@@ -1,0 +1,51 @@
+.nav {
+  position: fixed;
+  bottom: 28px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+}
+
+.counter {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--creme);
+  background: var(--navy-deep);
+  padding: 5px 10px;
+  border-radius: 3px;
+  opacity: .85;
+}
+
+.btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--navy-deep);
+  color: var(--creme);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+  outline: none;
+}
+
+.btn:hover {
+  background: var(--terra);
+  transform: scale(1.08);
+}
+
+.btn:active {
+  transform: scale(.95);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
