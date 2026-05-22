@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { MessageCircle, Globe } from "lucide-react";
+import { MessageCircle, Instagram } from "lucide-react";
 import ArticleCard from "./ArticleCard";
 import LinkButton from "./LinkButton";
 
@@ -31,13 +31,13 @@ const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 30vh;
   margin-bottom: 40px;
 `;
 
 const LogoImg = styled.img`
-  height: 10vh;
-  display: block;
-  margin-bottom: 12px;
+  height: 100%;
+  margin-bottom: -10px;
 `;
 
 const Tagline = styled.p`
@@ -116,9 +116,9 @@ export default function LinksPage() {
                 label="WhatsApp"
               />
               <LinkButton
-                href="https://ibrefrativa.com.br"
-                icon={Globe}
-                label="Site"
+                href="https://www.instagram.com/drluisfelipebortolan/"
+                icon={Instagram}
+                label="Conheça o médico que vai te operar"
               />
             </LinksStack>
           </Section>
