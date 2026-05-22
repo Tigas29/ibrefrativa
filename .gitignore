@@ -3,7 +3,7 @@
 .AppleDouble
 .LSOverride
 
-# Design source files (arquivos pesados, não precisam no repo)
+# Design source files
 I.D VISUAL/ARQUIVO/
 *.ai
 *.eps
@@ -11,8 +11,14 @@ I.D VISUAL/ARQUIVO/
 # Docs internos
 *.xlsx
 *.xls
+*.docx
+.~lock.*
 
 # Node
 node_modules/
+site/node_modules/
+site/dist/
+dist/
 .env
 .env.local
+*.local
