@@ -1,21 +1,22 @@
-import styled, { createGlobalStyle } from 'styled-components'
-import ArticleCard from './ArticleCard'
-import LinkButton from './LinkButton'
+import styled, { createGlobalStyle } from "styled-components";
+import { MessageCircle, Globe } from "lucide-react";
+import ArticleCard from "./ArticleCard";
+import LinkButton from "./LinkButton";
 
 const GlobalReset = createGlobalStyle`
   html, body {
     overflow: auto;
   }
-`
+`;
 
 const Page = styled.div`
   min-height: 100vh;
-  background: #1C2632;
+  background: #1c2632;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 48px 20px 64px;
-`
+`;
 
 const Inner = styled.div`
   width: 100%;
@@ -24,20 +25,20 @@ const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0;
-`
+`;
 
 const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 40px;
-`
+`;
 
 const LogoImg = styled.img`
-  height: 48px;
+  height: 10vh;
   display: block;
   margin-bottom: 12px;
-`
+`;
 
 const Tagline = styled.p`
   font-family: var(--font-ui);
@@ -48,12 +49,12 @@ const Tagline = styled.p`
   color: rgba(201, 194, 178, 0.55);
   text-align: center;
   margin: 0;
-`
+`;
 
 const Section = styled.div`
   width: 100%;
   margin-bottom: 28px;
-`
+`;
 
 const SectionLabel = styled.p`
   font-family: var(--font-ui);
@@ -61,23 +62,23 @@ const SectionLabel = styled.p`
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(201, 194, 178, 0.40);
+  color: rgba(201, 194, 178, 0.4);
   margin-bottom: 10px;
-`
+`;
 
 const LinksStack = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
-`
+`;
 
 const Divider = styled.div`
   width: 32px;
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
   margin: 4px auto 28px;
-`
+`;
 
 export default function LinksPage() {
   return (
@@ -86,7 +87,10 @@ export default function LinksPage() {
       <Page>
         <Inner>
           <LogoWrapper>
-            <LogoImg src="/logos/02.png" alt="Instituto Brasileiro de Refrativa" />
+            <LogoImg
+              src="/logos/02.png"
+              alt="Instituto Brasileiro de Refrativa"
+            />
             <Tagline>Instituto Brasileiro de Refrativa</Tagline>
           </LogoWrapper>
 
@@ -108,12 +112,12 @@ export default function LinksPage() {
             <LinksStack>
               <LinkButton
                 href="https://wa.me/5511911341997"
-                icon="📞"
+                icon={MessageCircle}
                 label="WhatsApp"
               />
               <LinkButton
                 href="https://ibrefrativa.com.br"
-                icon="🌐"
+                icon={Globe}
                 label="Site"
               />
             </LinksStack>
@@ -121,5 +125,5 @@ export default function LinksPage() {
         </Inner>
       </Page>
     </>
-  )
+  );
 }
