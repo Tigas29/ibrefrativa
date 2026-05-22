@@ -1,5 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { MessageCircle, Instagram } from "lucide-react";
+import { MessageCircle } from "lucide-react";
+
+const InstagramIcon = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+  </svg>
+);
 import ArticleCard from "./ArticleCard";
 import LinkButton from "./LinkButton";
 
@@ -117,7 +125,7 @@ export default function LinksPage() {
               />
               <LinkButton
                 href="https://www.instagram.com/drluisfelipebortolan/"
-                icon={Instagram}
+                icon={InstagramIcon}
                 label="Conheça o médico que vai te operar"
               />
             </LinksStack>
