@@ -119,7 +119,7 @@ export default function LinksPage() {
             <SectionLabel>Links</SectionLabel>
             <LinksStack>
               <LinkButton
-                href="https://wa.me/5511911341997"
+                href="https://wa.me/551150284894"
                 icon={MessageCircle}
                 label="WhatsApp"
               />
