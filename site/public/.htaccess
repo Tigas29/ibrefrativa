@@ -1,4 +1,10 @@
 Options -MultiViews
 RewriteEngine On
+RewriteBase /
+
+# Não reescreve arquivos nem diretórios reais (preserva /wpp/ e assets)
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.html [QR,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# SPA fallback: qualquer rota do React Router → index.html
+RewriteRule ^ index.html [L]
