@@ -305,11 +305,11 @@ export default function CirurgiaRefrativa() {
 
           <div className="hero-body">
             <p className="hero-lead">
-              Cirurgia refrativa a laser para miopia e astigmatismo, os dois olhos no mesmo dia, com o Dr. Luis Felipe Bortolan. Se você tem de 21 a 39 anos, descubra em 3 perguntas no WhatsApp se o seu caso dá.
+              Cirurgia refrativa a laser para miopia e astigmatismo, os dois olhos no mesmo dia, com o Dr. Luis Felipe Bortolan. Se você tem de 21 a 39 anos, descubra em 3 perguntas no WhatsApp se você é um candidato para realizar essa cirurgia.
             </p>
             {valor && <p className="hero-note" style={{ color: 'inherit', fontWeight: 700 }}>{nota2}</p>}
             <div className="hero-cta">
-              <a href="#quem-pode-fazer" className="cta">Quero saber se o meu caso dá</a>
+              <a href="#quem-pode-fazer" className="cta">Quero me livrar dos óculos</a>
               <p className="hero-note">{valor ? nota1 : `${nota1} ${nota2}`}</p>
             </div>
             <div className="prova">
@@ -382,7 +382,7 @@ export default function CirurgiaRefrativa() {
               <p className="p" style={{ fontWeight: 700, maxWidth: 640 }}>
                 Se você se reconheceu em algum desses momentos, a pergunta agora é prática: dá para fazer no seu olho?
               </p>
-              <a href="#quem-pode-fazer" className="cta">Quero saber se o meu caso dá</a>
+              <a href="#quem-pode-fazer" className="cta">Quero me livrar dos óculos</a>
             </Reveal>
           </div>
         </section>
@@ -623,7 +623,7 @@ export default function CirurgiaRefrativa() {
                 <p className="s sand">A paciente que passou 29 anos de óculos escreveu isto depois de operar:</p>
                 <blockquote><p className="fecha-q">"Depois de 29 anos dependendo de óculos e lentes, finalmente fiquei livre dos meus +7 graus de miopia. O único arrependimento foi não ter feito antes."</p></blockquote>
                 <p className="p">Se você tem de 21 a 39 anos e o seu grau parou de aumentar, o primeiro passo são 3 perguntas no WhatsApp.</p>
-                <a href="#quem-pode-fazer" className="cta">Quero saber se o meu caso dá</a>
+                <a href="#quem-pode-fazer" className="cta">Quero me livrar dos óculos</a>
                 <p className="s sand">
                   <a href={waLink(WA_MSG_HEADER)} target="_blank" rel="noopener noreferrer" onClick={() => track('fechamento')} style={{ textDecoration: 'underline' }}>WhatsApp (11) 5028-4894</a>
                 </p>
@@ -647,7 +647,7 @@ export default function CirurgiaRefrativa() {
 
       {/* Barra fixa do celular */}
       <div className={`barra ${barraOn ? 'on' : ''}`} aria-hidden={!barraOn}>
-        <a href="#quem-pode-fazer" className="cta" tabIndex={barraOn ? 0 : -1}>Quero saber se o meu caso dá</a>
+        <a href="#quem-pode-fazer" className="cta" tabIndex={barraOn ? 0 : -1}>Quero me livrar dos óculos</a>
       </div>
     </Page>
   )

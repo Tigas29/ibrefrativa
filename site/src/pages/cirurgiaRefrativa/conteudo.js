@@ -57,7 +57,7 @@ export const DORES = [
     foto: 'moto',
     pos: '50% 60%',
     kicker: 'Moto, treino e campo',
-    titulo: 'Trocar o óculos pela lente só para pilotar.',
+    titulo: 'Trocar o óculos pela lente só para incomodar menos em alguma atividade.',
     texto:
       'O óculos que embaça dentro do capacete. A lente que sai do lugar no treino. Não reconhecer o rosto do colega do outro lado do campo. Para quem leva impacto no rosto, pesa muito qual técnica o seu olho permite. A diferença está mais abaixo.',
   },
