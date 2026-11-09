@@ -22,6 +22,7 @@ export const KICKERS = {
 // Fotos: n = nome do arquivo em /fotos/lp; multi = existe em 800w e 1600w; w/h = proporção.
 export const FOTOS = {
   criado: { n: 'cena-criado-mudo', multi: true, w: 1600, h: 1067 },
+  livros: { n: 'cena-oculos-livros', multi: true, w: 1600, h: 1067 },
   estojo: { n: 'cena-estojo-lente', multi: true, w: 1600, h: 2133 },
   moto: { n: 'cena-moto', multi: true, w: 1600, h: 2400 },
   armacao: { n: 'cena-armacao-grossa', multi: true, w: 1600, h: 1600 },
@@ -35,8 +36,8 @@ export const FOTOS = {
 export const DORES = [
   {
     id: 'oculos',
-    foto: 'criado',
-    pos: '30% 50%',
+    foto: 'livros',
+    pos: '50% 55%',
     kicker: 'Anos de óculos',
     titulo: 'Acordar e colocar o óculos antes de qualquer coisa.',
     texto:

@@ -265,7 +265,8 @@ export const Page = styled.div`
     .vid { height: 320px; padding: 20px; }
     .quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
     .q p.t { font-size: 24px; }
-    .salto { height: 440px; margin: 56px 0 40px; }
+    .salto { height: 720px; margin: 56px 0 40px; }
+    .salto img { object-position: 50% 38% !important; }
     .ponte-cta { flex-direction: row; align-items: center; justify-content: space-between; gap: 48px; }
     .ponte-cta .cta { width: auto; min-width: 360px; flex: none; }
     .cornea-foto { height: 100%; min-height: 560px; margin: 0; }
