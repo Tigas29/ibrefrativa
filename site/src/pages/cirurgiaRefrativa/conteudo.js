@@ -114,11 +114,7 @@ export const FAQ = [
   ],
   [
     'A partir de quantos graus dá para operar?',
-    [
-      'O Dr. Luis opera miopia de até 10 graus, com ou sem astigmatismo. ',
-      { pend: '[grau mínimo a confirmar com o Dr.]' },
-      ' Se você não sabe o seu grau certinho, a receita do óculos já ajuda, e o exame confirma.',
-    ],
+    ['O Dr. Luis opera miopia de até 10 graus, com ou sem astigmatismo. Se você não sabe o seu grau certinho, a receita do óculos já ajuda, e o exame confirma.'],
   ],
   [
     'A cirurgia de miopia dói?',

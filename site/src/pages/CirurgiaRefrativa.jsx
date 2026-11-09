@@ -553,8 +553,7 @@ export default function CirurgiaRefrativa() {
                 <p className="num" aria-hidden="true">07</p>
                 <h2 className="h2">Av. Paulista, 91, sala 1001</h2>
                 <p className="k">10º andar · Bela Vista · São Paulo</p>
-                <p className="p">O exame e a consulta com o Dr. Luis são no mesmo prédio. <Pendente>[a quantos minutos a pé do metrô Paraíso]</Pendente></p>
-                <p className="s">Horário: <Pendente>[dias e horário do consultório]</Pendente></p>
+                <p className="p">O exame e a consulta com o Dr. Luis são no mesmo prédio.</p>
                 <p className="s">Mora fora de São Paulo? O exame pode ser feito na sua cidade, se tiver Pentacam por aí. A consulta e a cirurgia são aqui.</p>
               </div>
               <div className="c7 stack" style={{ alignSelf: 'end' }}>
@@ -641,7 +640,6 @@ export default function CirurgiaRefrativa() {
           <p className="s">WhatsApp (11) 5028-4894 · Instagram <a href="https://www.instagram.com/drluisfelipebortolan/" target="_blank" rel="noopener noreferrer">@drluisfelipebortolan</a></p>
           <p className="s">Responsável técnico: Dr. Luis Felipe Bortolan · CRM-SP 205675 · RQE 148991</p>
           <p className="s fino">Os resultados variam de pessoa para pessoa. A indicação da cirurgia depende de exames e da avaliação do médico.</p>
-          <p className="s"><Pendente>[link da política de privacidade]</Pendente></p>
         </div>
       </footer>
 
