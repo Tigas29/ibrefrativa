@@ -128,8 +128,10 @@ export const Page = styled.div`
 
   /* Depoimentos */
   .vids { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .vid { height: 240px; background: var(--navy); color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: 14px; box-sizing: border-box; }
-  .vid.b { background: var(--navy2); }
+  .depo { display: flex; flex-direction: column; gap: 28px; margin-top: 8px; }
+  .vid { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .vid video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; background: var(--navy); }
+  .vid figcaption { font-size: 14px; line-height: 1.35; font-weight: 700; }
   .quotes { display: flex; flex-direction: column; gap: 20px; }
   .q { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 2px solid var(--navy); }
   .q p.t { font-size: 22px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
@@ -262,7 +264,9 @@ export const Page = styled.div`
     .dores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 24px; margin-top: 48px; }
     .dor .ph { height: 260px; }
     .vids { gap: 24px; }
-    .vid { height: 320px; padding: 20px; }
+    .depo { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); gap: 56px; align-items: end; margin-top: 24px; }
+    .depo .quotes { display: flex; margin-top: 0; }
+    .depo .q p.t { font-size: 30px; line-height: 1.2; }
     .quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
     .q p.t { font-size: 24px; }
     .salto { height: 720px; margin: 56px 0 40px; }

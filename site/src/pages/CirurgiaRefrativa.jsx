@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { GlobalLP, Page } from './cirurgiaRefrativa/estilos'
 import {
-  WA_NUMERO, WA_MSG_HEADER, TITULOS, KICKERS, FOTOS, DORES, DEPOIMENTOS,
+  WA_NUMERO, WA_MSG_HEADER, TITULOS, KICKERS, FOTOS, DORES, DEPOIMENTOS, VIDEOS,
   PASSOS, FAQ, MOTIVOS_FORA,
 } from './cirurgiaRefrativa/conteudo'
 
@@ -345,27 +345,35 @@ export default function CirurgiaRefrativa() {
           <div className="ct">
             <Reveal className="stack" style={{ gap: 20 }}>
               <h2 className="h2" style={{ maxWidth: 820 }}>O que quem operou com o Dr. Luis conta depois</h2>
-              <p className="s muted">Mensagens que pacientes do IBR mandaram depois da cirurgia, publicadas com autorização.</p>
+              <p className="s muted">Vídeos e mensagens de pacientes do IBR, publicados com autorização.</p>
+            </Reveal>
+            <Reveal className="depo">
               <div className="vids">
-                {[1, 2].map((n) => (
-                  <div key={n} className={`vid ${n === 2 ? 'b' : ''}`}>
-                    <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><path d="M8 4l24 14L8 32z" fill="#FEB161" /></svg>
-                    <p className="s"><Pendente>Vídeo {n} · legenda pendente</Pendente></p>
-                  </div>
+                {VIDEOS.map((v) => (
+                  <figure className="vid" key={v.id}>
+                    <video
+                      controls
+                      playsInline
+                      preload="none"
+                      poster={`/videos/lp/depoimento-${v.id}.webp`}
+                      width="540"
+                      height="960"
+                      onPlay={() => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'video_play', video: v.id }) }}
+                    >
+                      <source src={`/videos/lp/depoimento-${v.id}.mp4`} type="video/mp4" />
+                    </video>
+                    <figcaption>{v.legenda}</figcaption>
+                  </figure>
                 ))}
               </div>
-            </Reveal>
-            <Reveal className="quotes">
-              {DEPOIMENTOS.map((d) => (
-                <blockquote className="q" key={d.texto}>
-                  <p className="t">{d.texto}</p>
-                  <p className="k muted"><Partes partes={d.fonte} /></p>
-                </blockquote>
-              ))}
-              <blockquote className="q">
-                <p className="t"><Pendente>[print 7: mensagem de agradecimento, só como imagem]</Pendente></p>
-                <p className="k muted">Paciente do IBR · print do WhatsApp</p>
-              </blockquote>
+              <div className="quotes">
+                {DEPOIMENTOS.map((d) => (
+                  <blockquote className="q" key={d.texto}>
+                    <p className="t">{d.texto}</p>
+                    <p className="k muted"><Partes partes={d.fonte} /></p>
+                  </blockquote>
+                ))}
+              </div>
             </Reveal>
           </div>
           <Foto id="salto" className="salto" pos="50% 35%" sizes="100vw" />

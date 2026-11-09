@@ -76,16 +76,14 @@ export const DEPOIMENTOS = [
   {
     texto:
       '"-8 graus de miopia + astigmatismo... me sinto livre, com melhor qualidade de vida e muito mais bonita."',
-    fonte: ['Paciente do IBR · print do WhatsApp'],
+    fonte: ['Paciente do IBR · mensagem no WhatsApp'],
   },
-  {
-    texto: '"Melhorou minha autoestima e qualidade de vida."',
-    fonte: ['Paciente do IBR · print do WhatsApp'],
-  },
-  {
-    texto: '"Visão límpida e cores vibrantes..."',
-    fonte: ['Paciente do IBR · ', { pend: '[texto completo pendente]' }],
-  },
+]
+
+// Vídeos de pacientes (reels públicos no @ibrefrativa). Arquivos em /videos/lp.
+export const VIDEOS = [
+  { id: 'marcia', legenda: 'Márcia, 27 anos · 10 dias depois da cirurgia' },
+  { id: 'juliana', legenda: 'Juliana, 26 anos · de óculos desde os 6' },
 ]
 
 export const PASSOS = [
@@ -137,7 +135,7 @@ export const FAQ = [
   [
     'Quantos dias de repouso? Quanto tempo de recuperação?',
     [
-      'Uns 3 ou 4 dias de repouso em casa, com os colírios. A visão vai melhorando aos poucos, e a maioria volta à rotina do 5º dia em diante. Quem libera é o Dr. Muita gente marca numa quinta ou sexta para emendar com o fim de semana. Cada olho tem o seu tempo, mas tem paciente que contou assim: "Um dia pós-cirurgia já consigo ler todas as placas e faixas."',
+      'Uns 3 ou 4 dias de repouso em casa, com os colírios. A visão vai melhorando aos poucos, e a maioria volta à rotina do 5º dia em diante. Quem libera é o Dr. Muita gente marca numa quinta ou sexta para emendar com o fim de semana.',
     ],
   ],
   [
