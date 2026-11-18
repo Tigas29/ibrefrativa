@@ -1,22 +1,52 @@
-// Conteúdo da LP /cirurgia-refrativa (fonte: copy-v4.md, Partes 2 e 3).
+// Conteúdo da LP /cirurgia-refrativa. Fonte: copy-v6 (18/nov/2026, página voltada à Pesquisa do Google).
 // Trechos { pend: '...' } são pendências e viram <Pendente> na tela.
 
 export const WA_NUMERO = '551150284894'
-export const WA_MSG_HEADER =
-  'Olá! Vim pela página do IBR e quero saber se posso fazer a cirurgia refrativa.'
 
-export const TITULOS = {
-  a: 'Pare de usar óculos e nunca mais acorde procurando por eles.',
-  b: 'Pare de usar lente de contato e nunca mais carregue estojo e solução na bolsa.',
-  c: 'Pare de depender do óculos e nunca mais deixe o grau escolher a sua armação.',
+// Preço publicado com o OK do Tiago (18/nov/2026). Mudou o preço, muda aqui no mesmo dia:
+// preço anunciado vincula a oferta (CDC, art. 30).
+export const PRECO = {
+  parcela: '12x de R$ 625',
+  linha: 'Os 2 olhos em 12x de R$ 625 sem juros.',
+  mes: 'novembro de 2026',
 }
 
-export const KICKERS = {
-  refrativa: 'Cirurgia refrativa a laser · Av. Paulista, São Paulo',
-  miopia: 'Cirurgia de miopia a laser · Av. Paulista, São Paulo',
-  tecnica: 'LASIK e PRK · Av. Paulista, São Paulo',
-  parar: 'Cirurgia para parar de usar óculos · Av. Paulista',
-  valor: 'Cirurgia refrativa · valor e parcelamento',
+// Mensagem já escrita do WhatsApp. Começa com "Vim pelo Google" quando a visita veio de anúncio:
+// é o marcador que o robô do IBR usa para pôr a etiqueta `google` no card.
+export const waMsgs = (google) => {
+  const abre = google ? 'Olá! Vim pelo Google' : 'Olá! Vim pela página do IBR'
+  return {
+    geral: `${abre} e quero saber se posso fazer a cirurgia refrativa.`,
+    valor: `${abre}. Vi o valor da cirurgia refrativa e quero saber se posso fazer.`,
+    checador: (grau, cornea) =>
+      `${abre}. Tenho de 21 a 39 anos, ${grau} e ${cornea}. Quero saber se posso fazer a cirurgia refrativa.`,
+  }
+}
+
+export const KICKER_TOPO = 'IBR · Av. Paulista, 91 · São Paulo'
+
+// Topo por ?g= (o grupo de anúncios): o título repete o que a pessoa buscou.
+export const TOPO = {
+  refrativa: {
+    h1: 'Cirurgia refrativa a laser na Av. Paulista',
+    apoio: 'Miopia e astigmatismo, os 2 olhos no mesmo dia, com o Dr. Luis Felipe Bortolan.',
+  },
+  miopia: {
+    h1: 'Cirurgia de miopia e astigmatismo a laser',
+    apoio: 'Para quem tem de 21 a 39 anos e até 10 graus de miopia.',
+  },
+  tecnica: {
+    h1: 'LASIK ou PRK: quem decide é a sua córnea',
+    apoio: 'O Pentacam mapeia a córnea e mostra qual técnica serve para o seu olho.',
+  },
+  parar: {
+    h1: 'Cirurgia para parar de usar óculos',
+    apoio: 'Os 2 olhos no mesmo dia, em 10 a 15 minutos de cirurgia.',
+  },
+  valor: {
+    h1: 'Valor da cirurgia refrativa em SP',
+    apoio: 'Os 2 olhos em 12x de R$ 625 sem juros no cartão.',
+  },
 }
 
 // Fotos: n = nome do arquivo em /fotos/lp; multi = existe em 800w e 1600w; w/h = proporção.
@@ -32,45 +62,6 @@ export const FOTOS = {
   drHeadshot: { n: 'dr-headshot', multi: false, w: 733, h: 1100 },
   drEditorial: { n: 'dr-editorial', multi: false, w: 800, h: 1200 },
 }
-
-export const DORES = [
-  {
-    id: 'oculos',
-    foto: 'livros',
-    pos: '50% 55%',
-    kicker: 'Anos de óculos',
-    titulo: 'Acordar e colocar o óculos antes de qualquer coisa.',
-    texto:
-      'O primeiro gesto do dia é sempre o mesmo, há anos. O óculos escuro que precisa ter grau. A piscina e o mar sem enxergar quem está na areia. O grau que você já sabe de cor, de tanto repetir na ótica.',
-  },
-  {
-    id: 'lente',
-    foto: 'estojo',
-    pos: '50% 50%',
-    kicker: 'A lente de contato',
-    titulo: 'A lente que você alterna com o óculos há anos.',
-    texto:
-      'O olho cansado no fim do dia. A lente que resseca no ar-condicionado. O estojo e a solução em toda bolsa e em toda mala. Tem gente que usa lente há 17 anos antes de procurar a cirurgia.',
-  },
-  {
-    id: 'moto',
-    foto: 'moto',
-    pos: '50% 60%',
-    kicker: 'Moto, treino e campo',
-    titulo: 'Trocar o óculos pela lente só para incomodar menos em alguma atividade.',
-    texto:
-      'O óculos que embaça dentro do capacete. A lente que sai do lugar no treino. Não reconhecer o rosto do colega do outro lado do campo. Para quem leva impacto no rosto, pesa muito qual técnica o seu olho permite. A diferença está mais abaixo.',
-  },
-  {
-    id: 'armacao',
-    foto: 'armacao',
-    pos: '50% 50%',
-    kicker: 'A lente fundo de garrafa',
-    titulo: 'A armação que o grau escolheu por você.',
-    texto:
-      'A lente grossa que só cabe nas armações mais largas. A sensação de que o óculos deixa o rosto mais pesado, mais velho. Gostar mais do próprio rosto sem a armação e não conseguir ficar sem ela.',
-  },
-]
 
 export const DEPOIMENTOS = [
   {
@@ -88,8 +79,8 @@ export const VIDEOS = [
 
 export const PASSOS = [
   {
-    t: 'Você responde 3 perguntas no WhatsApp.',
-    d: 'Idade, grau e se tem algo na córnea. Se fizer sentido seguir, a equipe te explica a cirurgia, te passa o valor e faz o pedido do exame.',
+    t: 'Você chama no WhatsApp.',
+    d: 'A equipe pergunta a sua idade, o seu grau e se você tem algo na córnea. Se fizer sentido seguir, te explica a cirurgia e faz o pedido do exame.',
   },
   {
     t: 'Você faz o Pentacam.',
@@ -106,6 +97,12 @@ export const PASSOS = [
 ]
 
 export const FAQ = [
+  [
+    'Qual o valor da cirurgia refrativa? Dá para parcelar?',
+    [
+      'Os 2 olhos saem em 12x de R$ 625 sem juros no cartão. O Pentacam é à parte, pago direto na clínica, ou pelo convênio, se o seu cobrir. Até a consulta com o Dr., o seu único gasto é o exame, e a cirurgia só precisa estar quitada até o dia dela.',
+    ],
+  ],
   [
     'Qual a idade para fazer a cirurgia de miopia? Dá depois dos 40?',
     [
@@ -138,12 +135,6 @@ export const FAQ = [
     'O grau pode voltar?',
     [
       'Nenhum médico pode prometer resultado. Por isso o Dr. só indica a cirurgia depois do exame e da consulta, quando vê que o seu caso é bom para ela. Grau que ainda está aumentando é um dos motivos para esperar. O que esperar no seu caso, ele te explica na consulta.',
-    ],
-  ],
-  [
-    'Qual o valor da cirurgia refrativa? Dá para parcelar?',
-    [
-      'O valor a gente te passa no WhatsApp, logo depois de entender o seu caso. Dá para parcelar em até 12 vezes sem juros no cartão. Até a consulta com o Dr., o seu único gasto é o exame, pago direto na clínica, e a cirurgia só precisa estar quitada até o dia dela.',
     ],
   ],
   [

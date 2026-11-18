@@ -113,18 +113,25 @@ export const Page = styled.div`
   .hero { display: block; }
   .hero-top { padding: 28px 24px 0; display: flex; flex-direction: column; gap: 18px; }
   .hero-img { height: 250px; margin: 24px 0; }
-  .hero-body { padding: 0 24px; display: flex; flex-direction: column; gap: 16px; }
+  .hero-body { padding: 18px 24px 0; display: flex; flex-direction: column; gap: 14px; }
   .hero-lead { font-size: 17px; line-height: 1.5; }
   .hero-note { font-size: 14px; line-height: 1.45; color: var(--muted); }
   .prova { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border-top: 2px solid var(--navy); padding-top: 16px; margin-top: 8px; }
   .prova .big { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; }
   .prova .mid { font-size: 15px; font-weight: 700; line-height: 1.3; }
   .hero-foto-leg { display: none; }
+  .preco-linha { font-size: 20px; line-height: 1.3; font-weight: 700; }
+  .hero-cta { display: flex; flex-direction: column; gap: 2px; }
+  .wa-ic { flex: none; }
 
-  /* Dores */
-  .dores { display: flex; flex-direction: column; gap: 40px; margin-top: 32px; }
-  .dor { display: flex; flex-direction: column; gap: 12px; }
-  .dor .ph { height: 200px; }
+  /* Link secundário (checador) e pares botão + link */
+  .link-sec { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; font-size: 16px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .acoes { display: flex; flex-direction: column; gap: 2px; }
+
+  /* Valor */
+  .valor-lista { list-style: none; display: flex; flex-direction: column; border-top: 2px solid var(--navy); margin-top: 8px; }
+  .valor-lista li { padding: 14px 0; border-bottom: 1px solid var(--sand); }
+  .valor-cta { margin-top: 8px; }
 
   /* Depoimentos */
   .vids { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -155,13 +162,6 @@ export const Page = styled.div`
   .res-in .msg { background: #fff; color: var(--navy); padding: 14px; font-size: 15px; line-height: 1.45; }
   .res-out { background: #f2f2ef; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-top: 6px solid var(--terra); }
   .crit { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; }
-
-  /* Calculadora */
-  .calc { border: 2px solid var(--navy); padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-  .rng { width: 100%; accent-color: var(--navy); height: 28px; }
-  .calc label { display: flex; flex-direction: column; gap: 4px; }
-  .total { border-top: 2px solid var(--navy); padding-top: 14px; }
-  .total .v { font-size: 48px; font-weight: 900; letter-spacing: -0.04em; }
 
   /* Dr. */
   .dr-foto { height: 400px; }
@@ -252,7 +252,10 @@ export const Page = styled.div`
     .hero-body { grid-column: 1 / span 7; grid-row: 2; padding: 26px 0 48px; align-self: start; gap: 26px; }
     .hero-img { grid-column: 9 / span 4; grid-row: 1 / span 2; margin: 0; height: auto; }
     .hero-lead { font-size: 20px; max-width: 640px; }
-    .hero-cta { display: flex; align-items: center; gap: 24px; }
+    .hero-cta { flex-direction: row; align-items: center; gap: 24px; }
+    .preco-linha { font-size: 24px; }
+    .valor-cta .cta { display: inline-flex; width: auto; min-height: 60px; padding: 0 32px; font-size: 18px; }
+    .acoes { flex-direction: row; align-items: center; gap: 24px; flex: none; }
     .hero-cta .cta { width: auto; min-height: 60px; padding: 0 32px; font-size: 18px; flex: none; }
     .hero-cta .hero-note { max-width: 380px; }
     .prova { max-width: 720px; gap: 24px; padding-top: 20px; margin-top: 0; }
@@ -261,8 +264,6 @@ export const Page = styled.div`
     .hero-foto-leg { display: block; position: absolute; left: 0; bottom: 0; padding: 12px 16px; background: #fff; font-size: 14px; font-weight: 700; }
 
     .sec-body { margin-top: 48px; }
-    .dores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 24px; margin-top: 48px; }
-    .dor .ph { height: 260px; }
     .vids { gap: 24px; }
     .depo { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); gap: 56px; align-items: end; margin-top: 24px; }
     .depo .quotes { display: flex; margin-top: 0; }
