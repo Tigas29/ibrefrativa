@@ -88,11 +88,11 @@ export const PASSOS = [
   },
   {
     t: 'Você faz o exame e passa em consulta, no mesmo dia.',
-    d: 'Na IOP, Av. Paulista, 1499, do lado do metrô Trianon-MASP. O Pentacam mapeia a sua córnea e, logo depois, o médico analisa o resultado com você e te diz o melhor caminho para o seu olho. Exame e consulta saem por R$ 250.',
+    d: 'Na IOP, Av. Paulista, 1499, do lado do metrô Trianon-MASP. O Pentacam mapeia a sua córnea e, logo depois, o médico analisa o resultado com você. Exame e consulta saem por R$ 250.',
   },
   {
-    t: 'A data da cirurgia.',
-    d: 'Sendo a refrativa o caminho do seu olho, a cirurgia é com o Dr. Luis, e a equipe marca a data com você.',
+    t: 'Você sai sabendo o que pode fazer.',
+    d: 'Se pode operar e qual cirurgia serve para o seu olho. Com todas as informações na mão, você decide com calma e escolhe a data da cirurgia.',
   },
   {
     t: 'Cirurgia e retornos.',
