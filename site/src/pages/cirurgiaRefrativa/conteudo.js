@@ -18,12 +18,16 @@ export const waMsgs = (google) => {
   return {
     geral: `${abre} e quero saber se posso fazer a cirurgia refrativa.`,
     valor: `${abre}. Vi o valor da cirurgia refrativa e quero saber se posso fazer.`,
-    checador: (grau, cornea) =>
-      `${abre}. Tenho de 21 a 39 anos, ${grau} e ${cornea}. Quero saber se posso fazer a cirurgia refrativa.`,
+    // idade: 'menos de 21 anos' | 'de 21 a 39 anos' | '40 anos ou mais'. dentro = o caso está na indicação da refrativa (24/nov):
+    // fora também vai para o WhatsApp, e a pergunta diz ao robô para onde levar a conversa.
+    checador: (idade, grau, cornea, dentro) =>
+      dentro
+        ? `${abre}. Tenho ${idade}, ${grau} e ${cornea}. Quero saber se posso fazer a cirurgia refrativa.`
+        : `${abre}. Tenho ${idade}, ${grau} e ${cornea}. Quero saber qual o melhor caminho pro meu olho.`,
   }
 }
 
-export const KICKER_TOPO = 'IBR · Av. Paulista, 91 · São Paulo'
+export const KICKER_TOPO = 'IBR · Av. Paulista · São Paulo'
 
 // Topo por ?g= (o grupo de anúncios): o título repete o que a pessoa buscou.
 export const TOPO = {
@@ -80,15 +84,15 @@ export const VIDEOS = [
 export const PASSOS = [
   {
     t: 'Você chama no WhatsApp.',
-    d: 'A equipe pergunta a sua idade, o seu grau e se você tem algo na córnea. Se fizer sentido seguir, te explica a cirurgia e faz o pedido do exame.',
+    d: 'A equipe pergunta a sua idade, o seu grau e se você tem algo na córnea. Depois, te explica a cirurgia e marca o seu exame.',
   },
   {
-    t: 'Você faz o Pentacam.',
-    d: 'Na Clínica Spot, Av. Paulista, 91. O resultado costuma sair no mesmo dia e vai para você e para o Dr. Luis. O exame é pago direto na clínica, e dá para fazer pelo convênio, se o seu cobrir. Já fez um Pentacam nos últimos 6 meses? Ele vale.',
+    t: 'Você faz o exame e passa em consulta, no mesmo dia.',
+    d: 'Na IOP, Av. Paulista, 1499, do lado do metrô Trianon-MASP. O Pentacam mapeia a sua córnea e, logo depois, o médico analisa o resultado com você e te diz o melhor caminho para o seu olho. Exame e consulta saem por R$ 250.',
   },
   {
-    t: 'Você passa em consulta com o Dr. Luis.',
-    d: 'No mesmo prédio do exame. Ele faz o exame oftalmológico, analisa o Pentacam com você e, estando tudo certo, você já sai com a data da cirurgia.',
+    t: 'A data da cirurgia.',
+    d: 'Sendo a refrativa o caminho do seu olho, a cirurgia é com o Dr. Luis, e a equipe marca a data com você.',
   },
   {
     t: 'Cirurgia e retornos.',
@@ -100,13 +104,13 @@ export const FAQ = [
   [
     'Qual o valor da cirurgia refrativa? Dá para parcelar?',
     [
-      'Os 2 olhos saem em 12x de R$ 625 sem juros no cartão. O Pentacam é à parte, pago direto na clínica, ou pelo convênio, se o seu cobrir. Até a consulta com o Dr., o seu único gasto é o exame, e a cirurgia só precisa estar quitada até o dia dela.',
+      'Os 2 olhos saem em 12x de R$ 625 sem juros no cartão. Antes da cirurgia, o seu único gasto é o exame com a consulta, R$ 250 os dois, no mesmo dia. A cirurgia só precisa estar quitada até o dia dela.',
     ],
   ],
   [
     'Qual a idade para fazer a cirurgia de miopia? Dá depois dos 40?',
     [
-      'O Dr. Luis indica a cirurgia a laser de 21 a 39 anos. Antes disso, o grau costuma ainda estar mudando. Lá pelos 40 e poucos anos chega a vista cansada, que a cirurgia a laser não impede, e a indicação muda.',
+      'O Dr. Luis indica a cirurgia a laser de 21 a 39 anos. Antes disso, o grau costuma ainda estar mudando. Lá pelos 40 e poucos anos chega a vista cansada, que a cirurgia a laser não impede, e a indicação muda. Passou dos 40, ou tem algum problema no olho? Vale fazer o exame com a consulta do mesmo jeito: o médico te diz o melhor caminho para o seu caso.',
     ],
   ],
   [
@@ -140,7 +144,7 @@ export const FAQ = [
   [
     'O convênio cobre? Faz pelo SUS?',
     [
-      'A cirurgia no IBR é particular, não é feita pelo convênio nem pelo SUS. Muitos planos não cobrem a refrativa, mas vale conferir no seu. O Pentacam você pode fazer pelo convênio, se ele cobrir.',
+      'A cirurgia no IBR é particular, não é feita pelo convênio nem pelo SUS. Muitos planos não cobrem a refrativa, mas vale conferir no seu.',
     ],
   ],
   [

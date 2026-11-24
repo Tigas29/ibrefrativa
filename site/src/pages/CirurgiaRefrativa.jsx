@@ -12,8 +12,8 @@ const TITLE = 'Cirurgia refrativa a laser em SP · Av. Paulista | IBR'
 const DESCRIPTION =
   'Cirurgia refrativa a laser na Av. Paulista: os 2 olhos em 12x de R$ 625 sem juros. Indicada de 21 a 39 anos, até 10 graus de miopia. Fale no WhatsApp.'
 const OG_IMAGE = `${SITE}/fotos/lp/og-dr.jpg`
-const MAPS_EMBED = 'https://www.google.com/maps?q=Av.+Paulista,+91,+S%C3%A3o+Paulo&output=embed'
-const MAPS_ROTA = 'https://www.google.com/maps/dir/?api=1&destination=Av.+Paulista,+91,+S%C3%A3o+Paulo'
+const MAPS_EMBED = 'https://www.google.com/maps?q=IOP+Instituto+Oftalmol%C3%B3gico+Paulista,+Av.+Paulista,+1499,+S%C3%A3o+Paulo&output=embed'
+const MAPS_ROTA = 'https://www.google.com/maps/dir/?api=1&destination=IOP+Instituto+Oftalmol%C3%B3gico+Paulista,+Av.+Paulista,+1499,+S%C3%A3o+Paulo'
 const waLink = (msg) => `https://wa.me/${WA_NUMERO}?text=${encodeURIComponent(msg)}`
 
 /* ───────── pequenos componentes ───────── */
@@ -145,9 +145,12 @@ function avaliar({ idade, grau, cornea }, msgs) {
   else if (idade === '40 ou mais') motivo = MOTIVOS_FORA.maior
   else if (grau === 'Mais de 10') motivo = MOTIVOS_FORA.grau
   else if (cornea === 'Tenho') motivo = MOTIVOS_FORA.cornea
-  const g = grau === 'Não sei' ? 'não sei o meu grau certinho' : 'uso até 10 graus'
-  const c = cornea === 'Não sei' ? 'não sei se tenho algo na córnea' : 'não tenho ceratocone'
-  return { dentro: !motivo, motivo, msg: msgs.checador(g, c) }
+  // 24/nov: a mensagem leva idade + grau + córnea como foram marcados, e diz se o caso está dentro ou fora da indicação.
+  const i = { 'Menos de 21': 'menos de 21 anos', '21 a 39': 'de 21 a 39 anos', '40 ou mais': '40 anos ou mais' }[idade]
+  const g = { 'Até 10': 'uso até 10 graus', 'Mais de 10': 'uso mais de 10 graus', 'Não sei': 'não sei o meu grau certinho' }[grau]
+  const c = { 'Não tenho': 'não tenho ceratocone', Tenho: 'tenho ceratocone ou outro problema na córnea', 'Não sei': 'não sei se tenho algo na córnea' }[cornea]
+  const dentro = !motivo
+  return { dentro, motivo, msg: msgs.checador(i, g, c, dentro) }
 }
 
 // Visita de anúncio do Google: o auto-tagging põe gclid/gbraid/wbraid/gad_source na URL.
@@ -179,19 +182,19 @@ export default function CirurgiaRefrativa() {
   const desktop = useMedia('(min-width: 900px)')
 
   // Rastreamento: todo clique que abre o WhatsApp (gatilho das conversões no GTM)
-  const track = (origem) => {
+  const track = (origem, extra) => {
     window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({ event: 'whatsapp_click', origem, g, canal: google ? 'google' : 'direto' })
+    window.dataLayer.push({ event: 'whatsapp_click', origem, g, canal: google ? 'google' : 'direto', ...extra })
   }
 
   // Botão que abre o WhatsApp direto, com a mensagem já escrita
-  const wa = (origem, { msg = msgs.geral, className = 'cta', label = 'Quero me livrar dos óculos', tabIndex } = {}) => (
+  const wa = (origem, { msg = msgs.geral, className = 'cta', label = 'Quero me livrar dos óculos', tabIndex, resultado } = {}) => (
     <a
       href={waLink(msg)}
       className={className}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => track(origem)}
+      onClick={() => track(origem, resultado ? { resultado } : undefined)}
       {...(tabIndex !== undefined ? { tabIndex } : {})}
     >
       <IconeWa />
@@ -377,7 +380,7 @@ export default function CirurgiaRefrativa() {
           <Reveal className="c7 stack">
             <p className="num" aria-hidden="true">{n}</p>
             <h2 className="h2">Quem pode fazer: idade e grau</h2>
-            <p className="p">Quer saber antes de chamar? Marque as 3 respostas. Se o seu caso entrar, o WhatsApp abre com elas já escritas.</p>
+            <p className="p">Quer saber antes de chamar? Marque as 3 respostas e o WhatsApp abre com elas já escritas.</p>
             {escolha('idade', 'Sua idade')}
             {escolha('grau', 'Seu grau de miopia')}
             {escolha('cornea', 'Ceratocone ou outro problema na córnea?')}
@@ -386,14 +389,15 @@ export default function CirurgiaRefrativa() {
                 <div className="res-in" data-resultado="dentro">
                   <p className="h3">Pelas suas respostas, faz sentido seguir para o exame.</p>
                   <div className="msg">{res.msg}</div>
-                  {wa('checador', { msg: res.msg, label: 'Abrir o WhatsApp com essas respostas' })}
+                  {wa('checador', { msg: res.msg, label: 'Abrir o WhatsApp com essas respostas', resultado: 'dentro' })}
                 </div>
               )}
               {res && !res.dentro && (
                 <div className="res-out" data-resultado="fora">
-                  <p className="h3">Pelo que você marcou, a cirurgia a laser que o Dr. Luis faz não é indicada para o seu caso.</p>
+                  <p className="h3">Pelo que você marcou, a refrativa a laser pode não ser o caminho do seu olho. O primeiro passo continua o mesmo.</p>
                   <p className="p">{res.motivo}</p>
-                  <a href="#perguntas" className="s" style={{ fontWeight: 700, textDecoration: 'underline' }}>Ver as perguntas sobre idade e grau</a>
+                  <p className="p">No exame com a consulta, os dois no mesmo dia, o médico vê o seu olho e te diz o melhor caminho: outra técnica, outra cirurgia ou outro tratamento.</p>
+                  {wa('checador', { msg: res.msg, label: 'Abrir o WhatsApp com essas respostas', resultado: 'fora' })}
                 </div>
               )}
             </div>
@@ -403,8 +407,8 @@ export default function CirurgiaRefrativa() {
               <p className="s" style={{ fontWeight: 700 }}>A indicação completa do Dr. Luis:</p>
               <p className="s">21 a 39 anos · miopia de até 10 graus, com ou sem astigmatismo · grau parado, sem aumentar · sem ceratocone · nunca operou os olhos · não está grávida nem amamentando.</p>
               <p className="s">Não sabe o seu grau certinho, ou se tem algo na córnea? Tudo bem. A receita do óculos já dá uma ideia, e quem confirma é o exame.</p>
-              <p className="s muted">Se o que você quer é largar o óculos de leitura, a refrativa a laser não serve para isso. A vista cansada chega para todo mundo lá pelos 40 e poucos anos, operado ou não.</p>
-              <p className="s">Se o seu caso fica fora da lista, melhor saber agora do que depois de uma tarde no consultório.</p>
+              <p className="s muted">Se o que você quer é largar o óculos de leitura, a refrativa a laser não serve para isso. A vista cansada chega para todo mundo lá pelos 40 e poucos anos, operado ou não. Mesmo assim, o exame com a consulta mostra o que dá para fazer no seu caso.</p>
+              <p className="s">Ficou fora da lista? Chama a gente do mesmo jeito. No exame com a consulta, o médico te diz o melhor caminho para o seu olho.</p>
             </div>
           </Reveal>
         </div>
@@ -467,15 +471,15 @@ export default function CirurgiaRefrativa() {
         <Reveal className="row" style={{ rowGap: 16 }}>
           <div className="c5 stack">
             <p className="num" aria-hidden="true">{n}</p>
-            <h2 className="h2">Av. Paulista, 91, sala 1001</h2>
-            <p className="k">10º andar · Bela Vista · São Paulo</p>
-            <p className="p">O exame e a consulta com o Dr. Luis são no mesmo prédio.</p>
-            <p className="s">Mora fora de São Paulo? O exame pode ser feito na sua cidade, se tiver Pentacam por aí. A consulta e a cirurgia são aqui.</p>
+            <h2 className="h2">Av. Paulista, 1499, 9º andar</h2>
+            <p className="k">IOP · do lado do metrô Trianon-MASP · São Paulo</p>
+            <p className="p">O exame e a consulta são no mesmo dia, no mesmo lugar.</p>
+            <p className="s">Mora fora de São Paulo? Exame e consulta saem no mesmo dia, então dá para resolver numa vinda só.</p>
           </div>
           <div className="c7 stack" style={{ alignSelf: 'end' }}>
             <div className="mapa">
               <iframe
-                title="Mapa: IBR, Av. Paulista, 91, São Paulo"
+                title="Mapa: IOP, Av. Paulista, 1499, São Paulo"
                 src={MAPS_EMBED}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
