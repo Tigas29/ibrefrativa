@@ -88,7 +88,7 @@ export const PASSOS = [
   },
   {
     t: 'Você faz o exame e passa em consulta, no mesmo dia.',
-    d: 'Na IOP, Av. Paulista, 1499, do lado do metrô Trianon-MASP. O Pentacam mapeia a sua córnea e, logo depois, o médico analisa o resultado com você e te diz o melhor caminho para o seu olho. Exame e consulta saem por R$ 250.',
+    d: 'Na IOP, Av. Paulista, 1499, do lado do metrô Trianon-MASP. O Pentacam mapeia a sua córnea e, logo depois, o médico analisa o resultado com você e te diz o melhor caminho para o seu olho. Exame e consulta saem por R$ 250.',
   },
   {
     t: 'A data da cirurgia.',
@@ -104,7 +104,7 @@ export const FAQ = [
   [
     'Qual o valor da cirurgia refrativa? Dá para parcelar?',
     [
-      'Os 2 olhos saem em 12x de R$ 625 sem juros no cartão. Antes da cirurgia, o seu único gasto é o exame com a consulta, R$ 250 os dois, no mesmo dia. A cirurgia só precisa estar quitada até o dia dela.',
+      'Os 2 olhos saem em 12x de R$ 625 sem juros no cartão. Antes da cirurgia, o seu único gasto é o exame com a consulta, R$ 250 os dois, no mesmo dia. A cirurgia só precisa estar quitada até o dia dela.',
     ],
   ],
   [

@@ -278,7 +278,7 @@ export default function CirurgiaRefrativa() {
             <h2 className="h2">O que entra nos {PRECO.parcela}</h2>
             <ul className="valor-lista">
               <li className="p"><b>A cirurgia dos 2 olhos,</b> no mesmo dia, com o Dr. Luis.</li>
-              <li className="p"><b>À parte: o exame com a consulta,</b> no mesmo dia, na IOP. O Pentacam mapeia a sua córnea e o médico já analisa o resultado com você. Os dois saem por R$ 250.</li>
+              <li className="p"><b>À parte: o exame com a consulta,</b> no mesmo dia, na IOP. O Pentacam mapeia a sua córnea e o médico já analisa o resultado com você. Os dois saem por R$ 250.</li>
               <li className="p"><b>Sem juros, no cartão.</b> A cirurgia só precisa estar quitada até o dia dela.</li>
             </ul>
             <div className="valor-cta">{wa('valor', { msg: msgs.valor })}</div>
